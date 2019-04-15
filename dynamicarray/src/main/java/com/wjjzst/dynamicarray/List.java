@@ -1,19 +1,25 @@
 package com.wjjzst.dynamicarray;
 
-public interface List<T> {
-    void add(T t);
+public interface List<E> {
+    void add(E element);
 
-    void remove(int index);
+    void add(int index, E element);
+
+    E remove(int index);
 
     void clear();
 
-    void size();
+    int size();
 
-    void isEmpty();
+    boolean isEmpty();
 
-    boolean contains(T t);
+    boolean contains(E element);
 
-    T get(int index);
+    E get(int index);
+
+    E set(int index, E element);
+
+    int indexOf(E element);
 
 
 }
