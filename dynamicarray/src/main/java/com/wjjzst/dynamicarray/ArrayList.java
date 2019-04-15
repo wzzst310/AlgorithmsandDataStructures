@@ -18,4 +18,24 @@ public class ArrayList<T> implements List<T> {
     public void clear() {
 
     }
+
+    @Override
+    public void size() {
+
+    }
+
+    @Override
+    public void isEmpty() {
+
+    }
+
+    @Override
+    public boolean contains(T t) {
+        return false;
+    }
+
+    @Override
+    public T get(int index) {
+        return null;
+    }
 }

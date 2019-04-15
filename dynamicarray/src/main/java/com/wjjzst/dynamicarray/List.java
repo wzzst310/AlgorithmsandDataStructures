@@ -7,5 +7,13 @@ public interface List<T> {
 
     void clear();
 
+    void size();
+
+    void isEmpty();
+
+    boolean contains(T t);
+
+    T get(int index);
+
 
 }
