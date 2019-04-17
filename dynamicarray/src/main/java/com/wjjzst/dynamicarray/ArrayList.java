@@ -29,7 +29,11 @@ public class ArrayList<E> implements List<E> {
     @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
-        ensureCapacity(index);
+        // -------------MJ-------------
+        // ensureCapacity(index);
+        // -------------MJ-------------
+        ensureCapacity(size + 1);
+
         for (int i = size; i > index; i--) {
             elements[i] = elements[i - 1];
         }
@@ -68,20 +72,21 @@ public class ArrayList<E> implements List<E> {
 
     @Override
     public boolean contains(E element) {
-        if (element == null) {
-            for (int i = 0; i < size; i++) {
-                if (elements[i] == null) {
-                    return true;
-                }
-            }
-        } else {
-            for (int i = 0; i < size; i++) {
-                if (element.equals(elements[i])) {
-                    return true;
-                }
-            }
-        }
-        return false;
+//        if (element == null) {
+//            for (int i = 0; i < size; i++) {
+//                if (elements[i] == null) {
+//                    return true;
+//                }
+//            }
+//        } else {
+//            for (int i = 0; i < size; i++) {
+//                if (element.equals(elements[i])) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+        return indexOf(element) != ELEMENE_NOE_FOUND;
     }
 
     @Override
@@ -116,11 +121,10 @@ public class ArrayList<E> implements List<E> {
         return ELEMENE_NOE_FOUND;
     }
 
-    private boolean rangeCheck(int index) {
+    private void rangeCheck(int index) {
         if (index < 0 || index >= size) {
             outOfBound(index);
         }
-        return true;
     }
 
     private boolean rangeCheckForAdd(int index) {
@@ -132,7 +136,10 @@ public class ArrayList<E> implements List<E> {
 
     private void ensureCapacity(int capacity) {
         int oldCapacity = elements.length;
-        if (oldCapacity > capacity) {
+        // -------------ME-------------
+        // if (oldCapacity > capacity) {
+        // -------------MJ-------------
+        if (oldCapacity >= capacity) {
             return;
         }
         int newCapacity = oldCapacity + (oldCapacity >> 1);
