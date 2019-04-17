@@ -11,7 +11,8 @@ public class ArrayListTest {
         System.out.println(list);
         //System.out.println(list.get(9));
         //System.out.println(list.remove(9));
-        list.clear();
-        System.out.println(list);
+        //list.clear();
+        list.add(null);
+        System.out.println(list.indexOf(null));
     }
 }
