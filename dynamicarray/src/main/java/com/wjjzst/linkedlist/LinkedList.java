@@ -8,12 +8,10 @@ public class LinkedList<E> extends AbstractList<E> {
 
 
     private class Node<E> {
-
         public Node(E element, Node<E> next) {
             this.element = element;
             this.next = next;
         }
-
         private E element;
         private Node<E> next;
     }
@@ -25,7 +23,7 @@ public class LinkedList<E> extends AbstractList<E> {
             first = new Node<>(element, first);
         } else {
             Node<E> prev = node(index - 1);
-            prev.next = new Node<>(element, prev.next.next);
+            prev.next = new Node<>(element, prev.next);
         }
         size++;
     }
