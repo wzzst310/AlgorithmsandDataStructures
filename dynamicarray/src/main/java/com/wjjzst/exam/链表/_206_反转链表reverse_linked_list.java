@@ -10,8 +10,10 @@ public class _206_反转链表reverse_linked_list {
     static class Solution {
         public ListNode reverseList(ListNode head) {
             while (head != null) {
+                ListNode newHead = null;
                 ListNode temp = head.next;
-                head.next = head;
+                head.next = newHead;
+                newHead.next = head;
                 head = temp;
                 head = head.next;
             }
