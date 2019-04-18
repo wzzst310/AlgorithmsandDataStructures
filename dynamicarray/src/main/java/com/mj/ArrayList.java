@@ -124,7 +124,7 @@ public class ArrayList<E> {
         rangeCheck(index);
 
         E old = elements[index];
-        for (int i = index + 1; i <= size - 1; i++) {
+        for (int i = index + 1; i < size; i++) {
             elements[i - 1] = elements[i];
         }
         elements[--size] = null;

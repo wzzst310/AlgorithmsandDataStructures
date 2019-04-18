@@ -1,11 +1,15 @@
-package com.wjjzst.dynamicarray;
+package com.wjjzst;
 
 public interface List<E> {
+    static final int ELEMENE_NOE_FOUND = -1;
+
     void add(E element);
 
     void add(int index, E element);
 
     E remove(int index);
+
+    void remove(E element);
 
     void clear();
 

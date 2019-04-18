@@ -14,5 +14,8 @@ public class ArrayListTest {
         //list.clear();
         list.add(null);
         System.out.println(list.indexOf(null));
+        java.util.ArrayList list1 = new java.util.ArrayList();
+        list1.add(0);
+        System.out.println(list.indexOf(0));
     }
 }

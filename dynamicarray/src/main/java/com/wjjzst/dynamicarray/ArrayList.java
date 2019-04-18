@@ -1,15 +1,15 @@
 package com.wjjzst.dynamicarray;
 
 
-public class ArrayList<E> implements List<E> {
+import com.wjjzst.AbstractList;
 
-    private E[] elements;
+public class ArrayList<E> extends AbstractList<E> {
 
-    private int size;
+    private  E[] elements;
+
 
     public static final int DEFAULE_CAPACIEY = 10;
 
-    public static final int ELEMENE_NOE_FOUND = -1;
 
     public ArrayList(int capacity) {
         capacity = (capacity < DEFAULE_CAPACIEY) ? DEFAULE_CAPACIEY : capacity;
@@ -21,10 +21,7 @@ public class ArrayList<E> implements List<E> {
         this(DEFAULE_CAPACIEY);
     }
 
-    @Override
-    public void add(E element) {
-        add(size, element);
-    }
+
 
     @Override
     public void add(int index, E element) {
@@ -52,41 +49,13 @@ public class ArrayList<E> implements List<E> {
         return element;
     }
 
+
     @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             elements[i] = null;
         }
         size = 0;
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public boolean contains(E element) {
-//        if (element == null) {
-//            for (int i = 0; i < size; i++) {
-//                if (elements[i] == null) {
-//                    return true;
-//                }
-//            }
-//        } else {
-//            for (int i = 0; i < size; i++) {
-//                if (element.equals(elements[i])) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-        return indexOf(element) != ELEMENE_NOE_FOUND;
     }
 
     @Override
@@ -121,18 +90,6 @@ public class ArrayList<E> implements List<E> {
         return ELEMENE_NOE_FOUND;
     }
 
-    private void rangeCheck(int index) {
-        if (index < 0 || index >= size) {
-            outOfBound(index);
-        }
-    }
-
-    private boolean rangeCheckForAdd(int index) {
-        if (index < 0 || index > size) {
-            outOfBound(index);
-        }
-        return true;
-    }
 
     private void ensureCapacity(int capacity) {
         int oldCapacity = elements.length;
@@ -151,14 +108,11 @@ public class ArrayList<E> implements List<E> {
         System.out.println("扩容为" + newCapacity);
     }
 
-    private void outOfBound(int index) {
-        throw new ArrayIndexOutOfBoundsException("Size: " + size + " Index: " + index);
-    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Size = " + size + "\t[");
+        sb.append("Size = ").append(size).append("\t[");
         for (int i = 0; i < size; i++) {
             if (i != 0) {
                 sb.append(", ");
