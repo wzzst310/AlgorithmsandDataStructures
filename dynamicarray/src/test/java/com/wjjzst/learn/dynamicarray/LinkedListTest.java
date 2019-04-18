@@ -1,6 +1,6 @@
-package com.wjjzst.dynamicarray;
+package com.wjjzst.learn.dynamicarray;
 
-import com.wjjzst.linkedlist.LinkedList;
+import com.wjjzst.learn.linkedlist.LinkedList;
 
 public class LinkedListTest {
     public static void main(String[] args) {

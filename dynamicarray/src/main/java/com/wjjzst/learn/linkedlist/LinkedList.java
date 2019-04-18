@@ -1,6 +1,6 @@
-package com.wjjzst.linkedlist;
+package com.wjjzst.learn.linkedlist;
 
-import com.wjjzst.AbstractList;
+import com.wjjzst.learn.AbstractList;
 
 public class LinkedList<E> extends AbstractList<E> {
 

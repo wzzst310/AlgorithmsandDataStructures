@@ -1,4 +1,4 @@
-package com.wjjzst;
+package com.wjjzst.learn;
 
 public interface List<E> {
     static final int ELEMENE_NOE_FOUND = -1;

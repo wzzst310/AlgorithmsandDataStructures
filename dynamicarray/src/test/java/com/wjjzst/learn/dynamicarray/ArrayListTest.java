@@ -1,4 +1,4 @@
-package com.wjjzst.dynamicarray;
+package com.wjjzst.learn.dynamicarray;
 
 
 public class ArrayListTest {

@@ -1,7 +1,7 @@
-package com.wjjzst.dynamicarray;
+package com.wjjzst.learn.dynamicarray;
 
 
-import com.wjjzst.AbstractList;
+import com.wjjzst.learn.AbstractList;
 
 public class ArrayList<E> extends AbstractList<E> {
 

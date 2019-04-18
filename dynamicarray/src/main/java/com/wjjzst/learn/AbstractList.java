@@ -1,4 +1,4 @@
-package com.wjjzst;
+package com.wjjzst.learn;
 
 public abstract class AbstractList<E> implements List<E> {
 
