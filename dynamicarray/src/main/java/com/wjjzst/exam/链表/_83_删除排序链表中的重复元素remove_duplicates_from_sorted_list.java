@@ -1,8 +1,8 @@
 package com.wjjzst.exam.链表;
 
 /**
- * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
  *
+ * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
  * @Author: Wjj
  * @Date: 2019-04-19 00:45
  */
