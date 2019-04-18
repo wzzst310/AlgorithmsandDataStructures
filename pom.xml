@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wjjzst</groupId>
-    <artifactId>algorithms_and_data_structure</artifactId>
+    <artifactId>AlgorithmsAndDataStructure</artifactId>
     <version>0.0.1</version>
     <modules>
         <module>dynamicarray</module>
