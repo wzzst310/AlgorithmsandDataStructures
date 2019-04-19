@@ -1,23 +1,30 @@
 package com.wjjzst.exam.链表;
 
 /**
- * https://leetcode-cn.com/problems/reverse-linked-list/
  *
+ * https://leetcode-cn.com/problems/reverse-linked-list/
  * @Author: Wjj
  * @Date: 2019-04-19 00:33
  */
 public class _206_反转链表reverse_linked_list {
     static class Solution {
         public ListNode reverseList(ListNode head) {
+            ListNode newHead = null;
             while (head != null) {
-                ListNode newHead = null;
                 ListNode temp = head.next;
                 head.next = newHead;
-                newHead.next = head;
+                newHead = head;
                 head = temp;
-                head = head.next;
             }
-            return head;
+            return newHead;
+        }
+        public ListNode reverseList1(ListNode head) {
+            ListNode newHead = null;
+            while(head != null && head.next !=null){
+                newHead = reverseList1(head);
+                newHead.next = head;
+            }
+            return newHead;
         }
     }
 
@@ -32,7 +39,8 @@ public class _206_反转链表reverse_linked_list {
         node3.next = node4;
         node4.next = node5;
         Solution solution = new Solution();
-        ListNode listNode = solution.reverseList(node1);
+        //ListNode listNode = solution.reverseList(node3);
+        ListNode listNode = solution.reverseList1(node1);
         System.out.println(listNode.val);
     }
 }
