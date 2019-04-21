@@ -1,41 +1,30 @@
 package com.wjjzst.learn.linkedlist;
 
-import com.wjjzst.exam.链表.ListNode;
 import com.wjjzst.learn.AbstractList;
 
-public class LinkedList<E> extends AbstractList<E> {
+public class SingleLinkedList<E> extends AbstractList<E> {
 
     private Node<E> first;
 
-    private Node<E> last;
-
 
     private class Node<E> {
-        public Node(E element, Node<E> prev, Node<E> next) {
+        public Node(E element, Node<E> next) {
             this.element = element;
             this.next = next;
-            this.prev = prev;
         }
-
         private E element;
-        private Node<E> prev;
         private Node<E> next;
     }
 
     @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
-        Node<E> next = node(index);
-        Node<E> prev = next.prev;
-        Node node = new Node(element, prev, next);
-        prev.next = node;
-        next.prev = node;
-//        if (index == 0) {
-//            first = new Node<>(element, first);
-//        } else {
-//            Node<E> prev = node(index - 1);
-//            prev.next = new Node<>(element, prev.next);
-//        }
+        if (index == 0) {
+            first = new Node<>(element, first);
+        } else {
+            Node<E> prev = node(index - 1);
+            prev.next = new Node<>(element, prev.next);
+        }
         size++;
     }
 
@@ -58,7 +47,6 @@ public class LinkedList<E> extends AbstractList<E> {
     public void clear() {
         size = 0;
         first = null;
-        last = null;
     }
 
     @Override
@@ -97,19 +85,11 @@ public class LinkedList<E> extends AbstractList<E> {
 
     private Node<E> node(int index) {
         rangeCheck(index);
-        if (index <= size >> 1) {
-            Node<E> node = first;
-            for (int i = 0; i <= index; i++) {
-                node = node.next;
-            }
-            return node;
-        } else {
-            Node<E> node = last;
-            for (int i = size - 1; i > index; i--) {
-                node = node.prev;
-            }
-            return node;
+        Node<E> node = first;
+        for (int i = 0; i < index; i++) {
+            node = node.next;
         }
+        return node;
     }
 
     @Override
@@ -125,7 +105,7 @@ public class LinkedList<E> extends AbstractList<E> {
 //            node = node.next;
 //        }
         while (node != null) {
-            if (!node.equals(first)) {
+            if(!node.equals(first)) {
                 sb.append(", ");
             }
             sb.append(node.element);

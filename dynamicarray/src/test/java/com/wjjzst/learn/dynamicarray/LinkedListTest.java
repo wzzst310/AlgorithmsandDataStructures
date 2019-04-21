@@ -1,10 +1,10 @@
 package com.wjjzst.learn.dynamicarray;
 
-import com.wjjzst.learn.linkedlist.LinkedList;
+import com.wjjzst.learn.linkedlist.SingleLinkedList;
 
 public class LinkedListTest {
     public static void main(String[] args) {
-        LinkedList<Object> list = new LinkedList<>();
+        SingleLinkedList<Object> list = new SingleLinkedList<>();
         list.add(1);
         list.add("A");
         list.remove(1);
