@@ -1,4 +1,4 @@
-package com.wjjzst.exam.链表;
+package com.wjjzst.exam.链表.easy;
 
 import java.util.HashMap;
 import java.util.HashSet;

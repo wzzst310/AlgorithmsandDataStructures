@@ -1,4 +1,4 @@
-package com.wjjzst.exam.链表;
+package com.wjjzst.exam.链表.easy;
 
 /**
  * https://leetcode-cn.com/problems/middle-of-the-linked-list/

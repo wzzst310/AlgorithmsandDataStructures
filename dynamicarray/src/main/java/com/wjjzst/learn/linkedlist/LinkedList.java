@@ -1,6 +1,5 @@
 package com.wjjzst.learn.linkedlist;
 
-import com.wjjzst.exam.链表.ListNode;
 import com.wjjzst.learn.AbstractList;
 
 public class LinkedList<E> extends AbstractList<E> {
