@@ -57,11 +57,10 @@ public class _203_移除链表元素remove_linked_lis_elements {
        static ListNode sortNode(ListNode node){
             ListNode cur = node;
             while(cur.next != null){
-                //TODO
                 if(cur.val > cur.next.val){
-                    ListNode temp = cur;
+                    ListNode temp = cur.next.next;
                     cur.next.next = cur;
-                    temp.next = cur.next.next;
+                    cur = temp;
                 }else{
                     cur = cur.next;
                 }
