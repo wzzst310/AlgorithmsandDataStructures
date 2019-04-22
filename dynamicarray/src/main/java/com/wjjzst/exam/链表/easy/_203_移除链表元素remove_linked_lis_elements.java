@@ -58,9 +58,10 @@ public class _203_移除链表元素remove_linked_lis_elements {
             ListNode cur = node;
             while(cur.next != null){
                 if(cur.val > cur.next.val){
+                    ListNode tem = cur;
                     ListNode temp = cur.next.next;
                     cur.next.next = cur;
-                    cur = temp;
+                    tem.next = temp;
                 }else{
                     cur = cur.next;
                 }
