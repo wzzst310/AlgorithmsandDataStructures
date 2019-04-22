@@ -60,8 +60,8 @@ public class _203_移除链表元素remove_linked_lis_elements {
                 //TODO
                 if(cur.val > cur.next.val){
                     ListNode temp = cur;
-                    cur.next = cur;
-                    temp.next = cur;
+                    cur.next.next = cur;
+                    temp.next = cur.next.next;
                 }else{
                     cur = cur.next;
                 }
