@@ -20,35 +20,69 @@ public class LinkedList<E> extends AbstractList<E> {
         private E element;
         private Node<E> prev;
         private Node<E> next;
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+
+            if (prev != null) {
+                sb.append(prev.element);
+            } else {
+                sb.append("null");
+            }
+
+            sb.append("_").append(element).append("_");
+
+            if (next != null) {
+                sb.append(next.element);
+            } else {
+                sb.append("null");
+            }
+
+            return sb.toString();
+        }
     }
 
     @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
-        Node<E> next = node(index);
-        Node<E> prev = next.prev;
-        Node node = new Node(element, prev, next);
-        prev.next = node;
-        next.prev = node;
-//        if (index == 0) {
-//            first = new Node<>(element, first);
-//        } else {
-//            Node<E> prev = node(index - 1);
-//            prev.next = new Node<>(element, prev.next);
-//        }
+        if (index == size) { //往最后一个元素时
+            Node<E> oldLast = last;
+            last = new Node<>(element, last, null);
+            if (oldLast == null) {   //链表为空时加的第一个元素
+                first = last;
+            } else {
+                oldLast.next = last;
+            }
+        } else {
+            Node<E> next = node(index);
+            Node<E> prev = next.prev;
+            Node node = new Node(element, prev, next);
+            next.prev = node;
+            if (prev == null) { //在第一个元素插入
+                first.next = node;
+            } else {
+                prev.next = node;
+            }
+        }
         size++;
     }
 
     @Override
     public E remove(int index) {
-        Node<E> node;
-        if (index == 0) {
-            node = first;
-            first = first.next;
+        rangeCheck(index);
+        Node<E> node = node(index);
+        Node<E> prev = node.prev;
+        Node<E> next = node.next;
+        if (prev == null) { //删首节点处理
+            first = next;
         } else {
-            Node<E> prev = node(index - 1);
-            node = prev.next;
-            prev.next = prev.next.next;
+            prev.next = next;
+        }
+        if (last == null) { //删尾节点处理
+            last = prev;
+        } else {
+            next.prev = prev;
         }
         size--;
         return node.element;
@@ -117,18 +151,18 @@ public class LinkedList<E> extends AbstractList<E> {
         StringBuilder sb = new StringBuilder();
         sb.append("Size = ").append(size).append("\t[");
         Node<E> node = first;
-//        for (int i = 0; i < size; i++) {
-//            if (i != 0) {
+//        while (node != null) {
+//            if (!node.equals(first)) {
 //                sb.append(", ");
 //            }
 //            sb.append(node.element);
 //            node = node.next;
 //        }
-        while (node != null) {
-            if (!node.equals(first)) {
+        for (int i = 0; i < size; i++) {
+            if(i != 0){
                 sb.append(", ");
             }
-            sb.append(node.element);
+            sb.append(node);
             node = node.next;
         }
         sb.append("]");
