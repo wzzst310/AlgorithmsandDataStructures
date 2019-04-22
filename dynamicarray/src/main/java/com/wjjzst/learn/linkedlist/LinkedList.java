@@ -97,9 +97,9 @@ public class LinkedList<E> extends AbstractList<E> {
 
     private Node<E> node(int index) {
         rangeCheck(index);
-        if (index <= size >> 1) {
+        if (index < size >> 1) {
             Node<E> node = first;
-            for (int i = 0; i <= index; i++) {
+            for (int i = 0; i < index; i++) {
                 node = node.next;
             }
             return node;
