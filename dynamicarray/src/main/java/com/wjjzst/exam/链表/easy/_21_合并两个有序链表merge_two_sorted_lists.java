@@ -13,24 +13,36 @@ import java.util.stream.Collectors;
 public class _21_合并两个有序链表merge_two_sorted_lists {
     class Solution {
         public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-            ArrayList<ListNode> nodes = new ArrayList<>();
-
-            getNodes(l1, nodes);
-            getNodes(l2, nodes);
+//            ListNode node = null;
+//            sortNode(l1);
+//            sortNode(l2);
+//            while(l1 !=null){
+//                while(l2 != null){
+//                    if(l1.val < l2.val){
+//                        node = l1;
+//                        node.next = null;
+//                    }else{
+//                        node = l2;
+//                        node.next = null;
+//                    }
+//                }
+//            }
             return null;
         }
-        ListNode sortNode(ListNode node){
-            ListNode cur = node;
-            while(cur.next != null){
-                if(cur.val > cur.next.val){
-                    ListNode temp = cur.next;
-                    cur.next = cur.next.next;
-                    temp.next = cur;
-                }else{
+        //链表排序值交换就行了
+        private void sortNode(ListNode node){
+            while(node != null) {
+                ListNode cur = node;
+                while (cur.next != null) {
+                    if (cur.val > cur.next.val) {
+                        int temp = cur.val;
+                        cur.val = cur.next.val;
+                        cur.next.val = temp;
+                    }
                     cur = cur.next;
                 }
+                node = node.next;
             }
-            return node;
         }
 
         private void getNodes(ListNode node, ArrayList<ListNode> nodes) {

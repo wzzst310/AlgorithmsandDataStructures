@@ -54,21 +54,6 @@ public class _203_移除链表元素remove_linked_lis_elements {
             return head.val == val ? head.next : head;
         }
 
-       static ListNode sortNode(ListNode node){
-            ListNode cur = node;
-            while(cur.next != null){
-                if(cur.val > cur.next.val){
-                    ListNode tem = cur;
-                    ListNode temp = cur.next.next;
-                    cur.next.next = cur;
-                    tem.next = temp;
-                }else{
-                    cur = cur.next;
-                }
-            }
-            return node;
-        }
-
         public static void main(String[] args) {
             ListNode node0 = new ListNode(6);
             ListNode node1 = new ListNode(1);
@@ -88,7 +73,6 @@ public class _203_移除链表元素remove_linked_lis_elements {
             Solution solution = new Solution();
             //ListNode listNode = solution.removeElements2(node0, 6);
             //System.out.println(listNode.val);
-            sortNode(node0);
             System.out.println(node0.val);
         }
     }
