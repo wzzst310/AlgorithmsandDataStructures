@@ -37,6 +37,7 @@ public class _21_合并两个有序链表merge_two_sorted_lists {
         private void sortNode(ListNode node) {
             while (node != null) {
                 ListNode cur = node;
+                //TODO 少了最后一次遍历
                 while (cur.next != null) {
                     if (cur.val > cur.next.val) {
                         int temp = cur.val;
