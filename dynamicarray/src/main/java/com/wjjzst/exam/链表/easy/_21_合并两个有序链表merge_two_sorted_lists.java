@@ -1,8 +1,6 @@
 package com.wjjzst.exam.链表.easy;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * https://leetcode-cn.com/problems/merge-two-sorted-lists/
@@ -13,25 +11,27 @@ import java.util.stream.Collectors;
 public class _21_合并两个有序链表merge_two_sorted_lists {
     class Solution {
         public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-//            ListNode node = null;
-//            sortNode(l1);
-//            sortNode(l2);
-//            while(l1 !=null){
-//                while(l2 != null){
-//                    if(l1.val < l2.val){
-//                        node = l1;
-//                        node.next = null;
-//                    }else{
-//                        node = l2;
-//                        node.next = null;
-//                    }
-//                }
-//            }
-            return null;
+            if (l1 != null) {
+                ListNode cur = l1;
+                while (cur.next != null) {
+                    cur = cur.next;
+                }
+                cur.next = l2;
+                sortNode(l1);
+                return l1;
+            }else{
+                if(l2 != null){
+                    sortNode(l2);
+                    return l2;
+                }else{
+                    return null;
+                }
+            }
         }
+
         //链表排序值交换就行了
-        private void sortNode(ListNode node){
-            while(node != null) {
+        private void sortNode(ListNode node) {
+            while (node != null) {
                 ListNode cur = node;
                 while (cur.next != null) {
                     if (cur.val > cur.next.val) {
