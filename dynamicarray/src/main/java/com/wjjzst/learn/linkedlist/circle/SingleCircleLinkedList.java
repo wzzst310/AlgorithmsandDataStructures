@@ -1,8 +1,8 @@
-package com.wjjzst.learn.linkedlist;
+package com.wjjzst.learn.linkedlist.circle;
 
 import com.wjjzst.learn.AbstractList;
 
-public class SingleLinkedList<E> extends AbstractList<E> {
+public class SingleCircleLinkedList<E> extends AbstractList<E> {
 
     private Node<E> first;
 
@@ -12,6 +12,7 @@ public class SingleLinkedList<E> extends AbstractList<E> {
             this.element = element;
             this.next = next;
         }
+
         private E element;
         private Node<E> next;
     }
@@ -20,7 +21,9 @@ public class SingleLinkedList<E> extends AbstractList<E> {
     public void add(int index, E element) {
         rangeCheckForAdd(index);
         if (index == 0) {
-            first = new Node<>(element, first);
+            Node<E> newFirst = new Node<>(element, first);
+            Node<E> last = size == 0 ? newFirst : node(size - 1);
+            last.next = newFirst;
         } else {
             Node<E> prev = node(index - 1);
             prev.next = new Node<>(element, prev.next);
@@ -34,9 +37,14 @@ public class SingleLinkedList<E> extends AbstractList<E> {
         Node<E> node;
         if (index == 0) {
             node = first;
-            Node<E> last = node(size-1);
-            first = first.next;
-            last.next = first;
+            //如果是一个的时候必须讲first==null
+            if(size == 1){
+                first = null;
+            }else{
+                Node<E> last = node(index -1);
+                first = first.next;
+                last.next = first;
+            }
         } else {
             Node<E> prev = node(index - 1);
             node = prev.next;
@@ -108,7 +116,7 @@ public class SingleLinkedList<E> extends AbstractList<E> {
 //            node = node.next;
 //        }
         while (node != null) {
-            if(!node.equals(first)) {
+            if (!node.equals(first)) {
                 sb.append(", ");
             }
             sb.append(node.element);
