@@ -2,7 +2,7 @@ package com.wjjzst.learn;
 
 public abstract class AbstractList<E> implements List<E> {
 
-    public int size;
+    protected int size;
 
     @Override
     public void add(E element) {
