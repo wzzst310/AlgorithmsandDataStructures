@@ -208,4 +208,17 @@ public class JosephusCircleLinkedList<E> extends AbstractList<E> {
         return sb.toString();
     }
 
+    public static void main(String[] args) {
+        JosephusCircleLinkedList<Integer> list = new JosephusCircleLinkedList<>();
+        for (int i = 1; i < 9; i++) {
+            list.add(i);
+        }
+        list.reset();
+        while (list.size != 0) {
+            list.next();
+            list.next();
+            Integer remove = list.remove();
+            System.out.println(remove);
+        }
+    }
 }
