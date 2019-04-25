@@ -13,6 +13,9 @@ public class CircleDeque<E> {
     private E[] elements;
     public static final int DEFAULE_CAPACIEY = 10;
 
+    /**
+     * // 队头 << << << << << << << 队尾
+     */
     public CircleDeque() {
         elements = (E[]) new Object[DEFAULE_CAPACIEY];
     }
@@ -31,7 +34,7 @@ public class CircleDeque<E> {
     public E deQueueFront() {
         E frontElement = elements[front];
         elements[front] = null;
-        front = index(-1);
+        front = index(1);
         size--;
         return frontElement;
     }
@@ -43,7 +46,7 @@ public class CircleDeque<E> {
     }
 
     public E deQueueRear() {
-        int rearIndex = index(size - 1 );
+        int rearIndex = index(size - 1);
         E rear = elements[index(rearIndex)];
         elements[rearIndex] = null;
         size--;
@@ -64,7 +67,7 @@ public class CircleDeque<E> {
 
     private int index(int index) {
         index = front + index;
-        return index - (index < elements.length ? 0 : index - elements.length);
+        return index - (index < elements.length ? 0 : elements.length);
     }
 
     private void ensureCapacity(int capacity) {

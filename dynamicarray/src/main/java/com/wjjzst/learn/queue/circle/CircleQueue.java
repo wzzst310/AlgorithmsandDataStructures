@@ -14,7 +14,9 @@ public class CircleQueue<E> {
     private int size;
     private E[] elements;
     public static final int DEFAULE_CAPACIEY = 10;
-
+    /**
+     * // 队头 << << << << << << << 队尾
+     */
     public CircleQueue() {
         elements = (E[]) new Object[DEFAULE_CAPACIEY];
     }
@@ -24,7 +26,7 @@ public class CircleQueue<E> {
     }
 
     public void enQueue(E element) {
-        ensureCapacity(size);
+        ensureCapacity(size + 1);
         elements[index(size)] = element;
         size++;
     }
@@ -56,7 +58,7 @@ public class CircleQueue<E> {
         if (oldCapacity >= capacity) {
             return;
         }
-        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        int newCapacity = oldCapacity + (oldCapacity << 1);
         E[] newElements = (E[]) new Object[newCapacity];
         for (int i = 0; i < size; i++) {
             newElements[i] = elements[index(i)];
