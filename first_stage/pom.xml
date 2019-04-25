@@ -4,13 +4,14 @@
         <artifactId>algorithms_and_data_structure</artifactId>
         <groupId>com.wjjzst</groupId>
         <version>0.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>first_stage</artifactId>
     <packaging>jar</packaging>
 
-    <name>dynamicarray</name>
+    <name>first_stage</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
