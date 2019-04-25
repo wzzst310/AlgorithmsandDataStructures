@@ -6,7 +6,7 @@
     <artifactId>AlgorithmsAndDataStructures</artifactId>
     <version>0.0.1</version>
     <modules>
-        <module>dynamicarray</module>
+        <module>first_stage</module>
     </modules>
     <packaging>pom</packaging>
 
