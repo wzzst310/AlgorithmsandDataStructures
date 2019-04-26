@@ -58,7 +58,7 @@ public class CircleDeque<E> {
     }
 
     public E rear() {
-        return elements[index(size-1)];
+        return elements[index(size - 1)];
     }
 
     public boolean isEmpty() {
@@ -66,12 +66,11 @@ public class CircleDeque<E> {
     }
 
     private int index(int index) {
-        index = front + index;
+        index += front;
         // 负数就表示往左移
-        if(index < 0){
+        if (index < 0) {  // front == 0  往左移一位 -1   就等于在最后往前挪多少位
             return index + elements.length;
         }
-
         return index - (index < elements.length ? 0 : elements.length);
     }
 
