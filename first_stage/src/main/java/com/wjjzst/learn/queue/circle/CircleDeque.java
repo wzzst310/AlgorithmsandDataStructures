@@ -47,7 +47,7 @@ public class CircleDeque<E> {
 
     public E deQueueRear() {
         int rearIndex = index(size - 1);
-        E rear = elements[index(rearIndex)];
+        E rear = elements[rearIndex];
         elements[rearIndex] = null;
         size--;
         return rear;
@@ -58,7 +58,7 @@ public class CircleDeque<E> {
     }
 
     public E rear() {
-        return elements[index(-1)];
+        return elements[index(size-1)];
     }
 
     public boolean isEmpty() {
@@ -67,6 +67,11 @@ public class CircleDeque<E> {
 
     private int index(int index) {
         index = front + index;
+        // 负数就表示往左移
+        if(index < 0){
+            return index + elements.length;
+        }
+
         return index - (index < elements.length ? 0 : elements.length);
     }
 
@@ -80,8 +85,8 @@ public class CircleDeque<E> {
         for (int i = 0; i < size; i++) {
             newElements[i] = elements[index(i)];
         }
-        front = 0;
         elements = newElements;
+        front = 0;
         System.out.println("扩容为" + newCapacity);
     }
 }

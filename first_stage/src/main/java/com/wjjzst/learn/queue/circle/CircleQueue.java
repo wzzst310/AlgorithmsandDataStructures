@@ -14,6 +14,7 @@ public class CircleQueue<E> {
     private int size;
     private E[] elements;
     public static final int DEFAULE_CAPACIEY = 10;
+
     /**
      * // 队头 << << << << << << << 队尾
      */
@@ -49,8 +50,8 @@ public class CircleQueue<E> {
     }
 
     private int index(int index) {
-        index = front + index;
-        return index - (index < elements.length ? 0 : index - elements.length);
+        index += front;
+        return index - (index < elements.length ? 0 : elements.length);
     }
 
     private void ensureCapacity(int capacity) {
@@ -58,7 +59,7 @@ public class CircleQueue<E> {
         if (oldCapacity >= capacity) {
             return;
         }
-        int newCapacity = oldCapacity + (oldCapacity << 1);
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
         E[] newElements = (E[]) new Object[newCapacity];
         for (int i = 0; i < size; i++) {
             newElements[i] = elements[index(i)];
@@ -67,4 +68,24 @@ public class CircleQueue<E> {
         elements = newElements;
         System.out.println("扩容为" + newCapacity);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+        string.append("capcacity=").append(elements.length)
+                .append(" size=").append(size)
+                .append(" front=").append(front)
+                .append(", [");
+        for (int i = 0; i < elements.length; i++) {
+            if (i != 0) {
+                string.append(", ");
+            }
+
+            string.append(elements[i]);
+        }
+        string.append("]");
+        return string.toString();
+    }
+
+
 }
