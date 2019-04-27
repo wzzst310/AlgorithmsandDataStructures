@@ -1,4 +1,4 @@
-package com.wjjzst.exam.堆栈;
+package com.wjjzst.exam.堆栈.easy;
 
 /**
  *
