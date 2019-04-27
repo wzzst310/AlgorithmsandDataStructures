@@ -31,8 +31,8 @@ public class OptimizedArrayList<E> extends AbstractList<E> {
         int realIndex = index(index);
         rangeCheckForAdd(realIndex);
         ensureCapacity(size + 1);
-         if (index < size >> 1) {
-            for (int i = 0; i < index; i++) {
+        if (index < size >> 1) {
+            for (int i = 0; i <= index; i++) {
                 elements[index(i - 1)] = elements[index(i)];
             }
             front = index(-(index + 1));
