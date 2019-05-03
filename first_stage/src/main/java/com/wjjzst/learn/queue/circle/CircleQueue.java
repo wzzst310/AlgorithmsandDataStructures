@@ -69,6 +69,14 @@ public class CircleQueue<E> {
         System.out.println("扩容为" + newCapacity);
     }
 
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[index(i)] = null;
+        }
+        front = 0;
+        size = 0;
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

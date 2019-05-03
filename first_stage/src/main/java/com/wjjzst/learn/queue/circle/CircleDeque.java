@@ -53,6 +53,14 @@ public class CircleDeque<E> {
         return rear;
     }
 
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[index(i)] = null;
+        }
+        front = 0;
+        size = 0;
+    }
+
     public E front() {
         return elements[front];
     }
