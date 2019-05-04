@@ -287,7 +287,47 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         }
         return true;
     }
+    // 找前驱节点
+    private Node<E> predesessor(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+        // 前驱节点在左子树当中(left.right.right.right.right...)
+        Node<E> p = node.left;
+        if (p != null) {
+            while (p.right != null) {
+                p = p.right;
+            }
+            return p;
+        }
+        // 从父节点,祖父节点中寻找前驱节点
+        while (node.parent != null && node == node.parent.left) {
+            node = node.parent;
+        }
+        // node = node.parent.right 跳出来
+        return node.parent;
+    }
 
+    // 找后驱节点
+    private Node<E> cesessor(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+        // 后驱节点在左子树当中(left.right.right.right.right...)
+        Node<E> p = node.right;
+        if (p != null) {
+            while (p.left != null) {
+                p = p.left;
+            }
+            return p;
+        }
+        // 从父节点,祖父节点中寻找后驱节点
+        while (node.parent != null && node == node.parent.right) {
+            node = node.parent;
+        }
+        // node = node.parent.left 跳出来
+        return node.parent;
+    }
     public void remove() {
 
     }

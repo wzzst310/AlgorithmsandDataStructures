@@ -18,15 +18,19 @@ public class Stack<E> {
         return list.isEmpty();
     }
 
-    public void push(E element){
+    public void push(E element) {
         list.add(element);
     }
 
-    public E pop(){
-        return list.remove(list.size()-1);
-    }
-    public E peek(){
-        return list.get(list.size()-1);
+    public E pop() {
+        return list.remove(list.size() - 1);
     }
 
+    public E peek() {
+        return list.get(list.size() - 1);
+    }
+
+    public void clear() {
+        list.clear();
+    }
 }
