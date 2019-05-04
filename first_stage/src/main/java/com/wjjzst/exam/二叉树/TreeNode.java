@@ -5,7 +5,7 @@ package com.wjjzst.exam.二叉树;
  * @Date: 2019-04-25 01:40
  */
 public class TreeNode {
-    int val;
+    public int val;
     public TreeNode left;
     public TreeNode right;
     TreeNode(int x) {
