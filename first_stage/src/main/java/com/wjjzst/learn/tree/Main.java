@@ -1,6 +1,7 @@
 package com.wjjzst.learn.tree;
 
 
+import com.wjjzst.learn.tree.old.BinarySearchTree;
 import com.wjjzst.learn.tree.printer.BinaryTrees;
 
 import java.util.ArrayList;
@@ -52,14 +53,20 @@ public class Main {
             }
         });
         System.out.println("中序:"+list);*/
-        List<Integer> newList = new ArrayList<>();
+        /*List<Integer> newList = new ArrayList<>();
         tree.levelOrder(new BinarySearchTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 newList.add(element);
             }
         });
-        System.out.println("层序:"+newList);
+        System.out.println("层序:"+newList);*/
+        tree.remove(13);
+        BinaryTrees.print(tree);
+        System.out.println("\n");
+        tree.remove(68);
+        BinaryTrees.print(tree);
+        System.out.println("\n");
 
 
     }

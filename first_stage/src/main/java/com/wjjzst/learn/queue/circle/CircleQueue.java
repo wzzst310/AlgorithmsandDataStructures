@@ -1,8 +1,6 @@
 package com.wjjzst.learn.queue.circle;
 
 
-import sun.security.util.Length;
-
 /**
  * 数组方式实现单向循环队列
  *
