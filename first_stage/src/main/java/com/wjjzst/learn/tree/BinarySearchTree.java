@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class BinarySearchTree<E> extends BinaryTree<E> implements BinaryTreeInfo {
+public class BinarySearchTree<E> extends BinaryTree<E> {
     private Comparator comparator;
 
     public BinarySearchTree(Comparator comparator) {
@@ -29,7 +29,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> implements BinaryTreeInfo
         elementNotNullCheck(element);
         // 根节点为空是
         if (root == null) {
-            root = new Node<>(element, null);
+            root = new Node<E>(element, null);
             size++;
             return;
         }
@@ -48,7 +48,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> implements BinaryTreeInfo
                 return;
             }
         }
-        Node<E> newNode = new Node<>(element, parent);
+        Node<E> newNode = new Node<E>(element, parent);
         if (cmp < 0) {
             parent.left = newNode;
         } else if (cmp > 0) {
@@ -241,9 +241,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> implements BinaryTreeInfo
         return node(element) != null;
     }
 
-    public static interface Visitor<E> {
-        void visit(E element);
-    }
+
 
     private int compare(E e1, E e2) {
         // 如果有传进来有比较
@@ -257,26 +255,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> implements BinaryTreeInfo
         if (element == null) {
             throw new IllegalArgumentException("element must not be null");
         }
-    }
-
-    @Override
-    public Object root() {
-        return root;
-    }
-
-    @Override
-    public Object left(Object node) {
-        return ((Node<E>) node).left;
-    }
-
-    @Override
-    public Object right(Object node) {
-        return ((Node<E>) node).right;
-    }
-
-    @Override
-    public Object string(Object node) {
-        return ((Node<E>) node).element;
     }
 
 

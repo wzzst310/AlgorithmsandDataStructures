@@ -1,6 +1,8 @@
 package com.wjjzst.learn.tree;
 
 
+import com.wjjzst.learn.tree.printer.BinaryTreeInfo;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -8,7 +10,7 @@ import java.util.Queue;
  * @Author: Wjj
  * @Date: 2019/5/6 12:17
  */
-public class BinaryTree<E> {
+public class BinaryTree<E> implements BinaryTreeInfo {
     protected int size;
     protected Node<E> root;
 
@@ -129,7 +131,7 @@ public class BinaryTree<E> {
     }
 
     public void levelOrderTraversal() {
-        /*if (root == null) {
+        if (root == null) {
             return;
         }
         Queue<Node<E>> queue = new LinkedList<>();
@@ -143,13 +145,13 @@ public class BinaryTree<E> {
             if (node.right != null) {
                 queue.offer(node.right);
             }
-        }*/
-        levelOrder(new BinarySearchTree.Visitor<E>() {
+        }
+        /*levelOrder(new BinarySearchTree.Visitor<E>() {
             @Override
             public void visit(E element) {
                 System.out.println(element);
             }
-        });
+        });*/
 
     }
 
@@ -169,6 +171,32 @@ public class BinaryTree<E> {
                 queue.offer(node.right);
             }
         }
+    }
+
+    @Override
+    public Object root() {
+        return root;
+    }
+
+    @Override
+    public Object left(Object node) {
+        return ((Node<E>) node).left;
+    }
+
+    @Override
+    public Object right(Object node) {
+        return ((Node<E>) node).right;
+    }
+
+    @Override
+    public Object string(Object node) {
+        return ((Node<E>) node).element;
+    }
+
+
+
+    public static interface Visitor<E> {
+        void visit(E element);
     }
 
 
