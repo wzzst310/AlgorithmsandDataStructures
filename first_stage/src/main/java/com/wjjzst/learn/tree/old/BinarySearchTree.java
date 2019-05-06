@@ -437,7 +437,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         return ((Node<E>) node).element;
     }
 
-    private class Node<E> {
+    private static class Node<E> {
         E element;
         Node<E> left;
         Node<E> right;

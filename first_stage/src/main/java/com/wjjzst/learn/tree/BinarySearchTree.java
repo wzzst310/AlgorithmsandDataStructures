@@ -25,8 +25,9 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         elementNotNullCheck(element);
         // 根节点为空是
         if (root == null) {
-            root = new Node<E>(element, null);
+            root = createNode(element, null);
             size++;
+             afterAdd(root);//新添加节点之后处理
             return;
         }
         // 根节点不为空时候
@@ -44,17 +45,19 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
                 return;
             }
         }
-        Node<E> newNode = new Node<E>(element, parent);
+        Node<E> newNode = createNode(element, parent);
         if (cmp < 0) {
             parent.left = newNode;
         } else if (cmp > 0) {
             parent.right = newNode;
         }
         size++;
+        afterAdd(newNode); //新添加节点之后处理
     }
 
+    protected void afterAdd(Node<E> node) {
 
-
+    }
 
 
     public void remove(E element) {
@@ -126,7 +129,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
     }
 
 
-
     private int compare(E e1, E e2) {
         // 如果有传进来有比较
         if (comparator != null) {
@@ -140,7 +142,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             throw new IllegalArgumentException("element must not be null");
         }
     }
-
 
 
     @Override

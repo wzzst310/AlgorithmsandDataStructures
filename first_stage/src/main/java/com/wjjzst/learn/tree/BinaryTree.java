@@ -305,17 +305,19 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
-
     public static interface Visitor<E> {
         void visit(E element);
     }
 
+    protected Node<E> createNode(E element, Node<E> parent) {
+        return new Node<>(element, parent);
+    }
 
-    protected class Node<E> {
-        E element;
-        Node<E> left;
-        Node<E> right;
-        Node<E> parent;
+    protected static class Node<E> {
+        protected E element;
+        protected Node<E> left;
+        protected Node<E> right;
+        protected Node<E> parent;
 
         public Node(E element, Node<E> parent) {
             this.element = element;
@@ -328,6 +330,15 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
         public boolean hasTwoChildren() {
             return left != null && right != null;
+        }
+
+        //判断自己是不是父节点的左子树
+        public boolean isLeftChild() {
+            return parent != null && this == parent.left;
+        }
+        //判断自己是不是父节点的左子树
+        public boolean isRightChild() {
+            return parent != null && this == parent.right;
         }
     }
 
