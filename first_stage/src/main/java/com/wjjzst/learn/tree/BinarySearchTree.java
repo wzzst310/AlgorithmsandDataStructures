@@ -27,7 +27,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         if (root == null) {
             root = createNode(element, null);
             size++;
-             afterAdd(root);//新添加节点之后处理
+            afterAdd(root);//新添加节点之后处理
             return;
         }
         // 根节点不为空时候
@@ -68,16 +68,17 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         if (node == null) {
             return;
         }
+        size--;
         // 度为2的节点
         if (node.hasTwoChildren()) {
             // 找到后继节点
-            Node<E> cesessor = cesessor(node);
+            Node<E> successor = successor(node);
             // 后继节点的值覆盖原本度为2的节点
-            node.element = cesessor.element;
+            node.element = successor.element;
             // 删除后继节点
-            node = cesessor;
+            node = successor;
         }
-        // 删除度为0,1的节点
+        // 删除度为0,1的节点的子节点
         Node<E> replacement = node.left != null ? node.left : node.right;
         // 度为1的节点替代节点必定存在
         if (replacement != null) {
@@ -92,8 +93,10 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             } else {
                 node.parent.right = replacement;
             }
+            afterRemove(node);
         } else if (node.parent == null) {// 度为0的节点  根节点
             root = null;
+            afterRemove(node);
         } else { // 度为0的节点 其他节点
             if (node == node.parent.left) {
                 // node.parent.left = replacement; //此时replacement = null
@@ -101,11 +104,15 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             } else {
                 node.parent.right = null;
             }
-
+            afterRemove(node);
         }
+        // 虽然没有节点指向node 但是node仍然指向他的父节点 node.parent = replacement.parent
+        // node删掉了 node.parent高度就会改变就需要平衡
+        // afterRemove(node); //删了replacement 改变的是node 需要调整的也是node
+    }
 
+    protected void afterRemove(Node<E> node) {
 
-        size--;
     }
 
     public Node<E> node(E element) {

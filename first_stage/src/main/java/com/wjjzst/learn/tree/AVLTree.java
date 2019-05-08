@@ -17,6 +17,7 @@ public class AVLTree<E> extends BinarySearchTree<E> {
         super(comparator);
     }
 
+    @Override
     protected void afterAdd(Node<E> node) {
         while ((node = node.parent) != null) {
             if (isBalance(node)) {
@@ -33,12 +34,89 @@ public class AVLTree<E> extends BinarySearchTree<E> {
     }
 
     @Override
+    protected void afterRemove(Node<E> node) {
+        while ((node = node.parent) != null) {
+            if (isBalance(node)) {
+                //更新高度 while循环同时更新高度 免得递归更新高度
+                updateHeight(node);
+            } else {
+                // 恢复平衡 找到第一个不平衡的节点
+                rebalance1(node);
+                // 需要一直往上找直到找到平衡的父节点  一直去恢复平
+            }
+        }
+    }
+
+    @Override
     protected Node<E> createNode(E element, Node<E> parent) {
         return new AVLNode<>(element, parent);
     }
 
+
     // 高度最低的那个不平衡的节点  // 就是grandparent节点
     private void rebalance(Node<E> grandparent) {
+        Node<E> parent = ((AVLNode<E>) grandparent).tallerChild();
+        Node<E> node = ((AVLNode<E>) parent).tallerChild();
+        if (parent.isLeftChild()) {
+            if (node.isLeftChild()) { // LL
+                rotate(grandparent, node.left, node, node.right, parent, parent.right, grandparent, grandparent.right);
+            } else { // LR
+                rotate(grandparent, parent.left, parent, node.left, node, node.right, grandparent, grandparent.right);
+            }
+        } else { //R
+            if (node.isLeftChild()) { //RL
+                rotate(grandparent, grandparent.left, grandparent, node.left, node, node.right, parent, parent.right);
+            } else { //RR
+                rotate(grandparent, grandparent.left, grandparent, parent.left, parent, node.left, node, node.right);
+            }
+        }
+    }
+
+    private void rotate(
+            Node<E> r, // 原来子树里面的根节点
+            Node<E> a, Node<E> b, Node<E> c,
+            Node<E> d,
+            Node<E> e, Node<E> f, Node<E> g) {
+        // 让d成为根节点,并维护与原本根节点的父节点关系
+        d.parent = r.parent;
+        if (r.isLeftChild()) {
+            r.parent.left = d;
+        } else if (r.isRightChild()) {
+            r.parent.right = d;
+        } else {
+            root = d;
+        }
+
+        // 处理a-b-c
+        b.left = a;
+        if (a != null) {
+            a.parent = b;
+        }
+        b.right = c;
+        if (c != null) {
+            c.parent = b;
+        }
+        updateHeight(b); //b的左右子节点变了需要调整高度
+        // 处理e-f-g
+        f.left = e;
+        if (e != null) {
+            e.parent = f;
+        }
+        f.right = g;
+        if (g != null) {
+            g.parent = f;
+        }
+        updateHeight(f); //f的左右子节点变了需要调整高度
+        // 处理b-d-f
+        d.left = b;
+        b.parent = d;
+        d.right = f;
+        f.parent = d;
+        updateHeight(d); //d的左右子节点变了需要调整高度
+    }
+
+    // 高度最低的那个不平衡的节点  // 就是grandparent节点
+    private void rebalance1(Node<E> grandparent) {
         Node<E> parent = ((AVLNode<E>) grandparent).tallerChild();
         Node<E> node = ((AVLNode<E>) parent).tallerChild();
         if (parent.isLeftChild()) {

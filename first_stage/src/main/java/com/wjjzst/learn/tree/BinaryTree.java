@@ -195,7 +195,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     // 找后驱节点
-    protected Node<E> cesessor(Node<E> node) {
+    protected Node<E> successor(Node<E> node) {
         if (node == null) {
             return null;
         }

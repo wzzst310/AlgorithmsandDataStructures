@@ -81,10 +81,12 @@ public class Main {
         // test1();
         List<Integer> list = generateList();
         AVLTree<Integer> avl = new AVLTree<>();
+        avl.add(list);
+        BinaryTrees.print(avl);
         for (Integer i : list) {
             System.out.println("\n");
             System.out.println("【" + i + "】");
-            avl.add(i);
+            avl.remove(i);
             BinaryTrees.print(avl);
             System.out.println("\n");
         }
