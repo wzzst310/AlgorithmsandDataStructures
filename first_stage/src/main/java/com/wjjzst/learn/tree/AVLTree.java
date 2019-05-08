@@ -59,16 +59,45 @@ public class AVLTree<E> extends BinarySearchTree<E> {
     }
 
     //左旋转
-    private void rotateLeft(Node<E> node) {
-        AVLNode<E> up = (AVLNode<E>) node;
-        AVLNode<E> down = (AVLNode<E>) up.tallerChild();
-        down.parent = up.parent;
-        up.left = down.right;
+    private void rotateLeft(Node<E> grandparent) {
+        Node<E> parent = grandparent.right;
+        Node<E> child = parent.left;
+        grandparent.right = child;
+        parent.left = grandparent;
+        afterRotate(grandparent, parent, child);
     }
 
     //右旋转
-    private void rotateRight(Node<E> node) {
+    private void rotateRight(Node<E> grandparent) {
+        Node<E> parent = grandparent.left;
+        Node<E> child = parent.right;
+        grandparent.left = child;
+        parent.right = grandparent;
+        afterRotate(grandparent, parent, child);
+        parent.parent = grandparent.parent;
+    }
 
+    // 更新完之后做的事情
+    private void afterRotate(Node<E> grandparent, Node<E> parent, Node<E> child) {
+        // 新子树根节点代替原子树根节点
+        parent.parent = grandparent.parent;
+        if (grandparent.isLeftChild()) {
+            grandparent.parent.left = parent;
+        } else if (grandparent.isRightChild()) {
+            grandparent.parent.right = parent;
+        } else {// 根节点情况
+            root = parent;
+        }
+        // 更新child为parent
+        if (child != null) {
+            child.parent = grandparent;
+        }
+        // 更新grandparent的parent
+        grandparent.parent = parent;
+
+        //更新高度 先从高度小的开始更新
+        updateHeight(grandparent);
+        updateHeight(parent);
     }
 
     // 左右子树高度差绝对值 < 1
@@ -105,12 +134,25 @@ public class AVLTree<E> extends BinarySearchTree<E> {
             int rightHeight = right == null ? 0 : ((AVLNode<E>) right).height;
             if (leftHeight > rightHeight) {
                 return left;
-            } else if (leftHeight > rightHeight) {
+            } else if (leftHeight < rightHeight) {
                 return right;
             } else { //如果左右子节点高度一样 自己是父节点的哪边 就返回自己哪边的子节点
                 return isLeftChild() ? left : right;
             }
         }
+    }
+
+    @Override
+    public Object string(Object node) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(((AVLNode<E>) node).element).append("_p(");
+        if (((AVLNode<E>) node).parent == null) {
+            sb.append("null");
+        } else {
+            sb.append(((AVLNode<E>) node).parent.element);
+        }
+        sb.append(")_h(").append((((AVLNode<E>) node).height)).append(")");
+        return sb.toString();
     }
 
 }

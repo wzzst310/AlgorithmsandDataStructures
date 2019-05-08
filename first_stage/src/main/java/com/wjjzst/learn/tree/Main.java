@@ -6,21 +6,15 @@ import com.wjjzst.learn.tree.printer.BinaryTrees;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
+
+
     static void test1() {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            list.add((int) (Math.random() * 100));
-        }
-//        list = Arrays.asList(7, 4, 2, 1, 3, 5, 9, 8, 11, 10, 12);
-//        list = Arrays.asList(7, 4, 9, 2, 5);
-        //list = Arrays.asList(13, 68, 89, 54, 78, 93, 84, 43, 16, 11, 71, 61, 55, 43, 91, 18, 32, 68, 90, 51);
-        list = Arrays.asList(13, 11, 68, 54, 89, 43, 61, 78, 93, 16, 51, 55, 71, 84, 91, 18, 90, 32);
-        System.out.println(list);
-        bst.add(list);
+        bst.add(generateList());
         BinaryTrees.print(bst);
         System.out.println("\n");
         //bst.preorderTraversal();
@@ -70,9 +64,31 @@ public class Main {
 
     }
 
+    static List<Integer> generateList() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            list.add((int) (Math.random() * 100));
+        }
+//        list = Arrays.asList(7, 4, 2, 1, 3, 5, 9, 8, 11, 10, 12);
+//        list = Arrays.asList(7, 4, 9, 2, 5);
+        //list = Arrays.asList(13, 68, 89, 54, 78, 93, 84, 43, 16, 11, 71, 61, 55, 43, 91, 18, 32, 68, 90, 51);
+        list = Arrays.asList(13, 11, 68, 54, 89, 43, 61, 78, 93, 16, 51, 55, 71, 84, 91, 18, 90, 32);
+        System.out.println(list);
+        return list;
+    }
+
     public static void main(String[] args) {
-        test1();
-        new AVLTree<>();
+        // test1();
+        List<Integer> list = generateList();
+        AVLTree<Integer> avl = new AVLTree<>();
+        for (Integer i : list) {
+            System.out.println("\n");
+            System.out.println("【" + i + "】");
+            avl.add(i);
+            BinaryTrees.print(avl);
+            System.out.println("\n");
+        }
+
 
     }
 }

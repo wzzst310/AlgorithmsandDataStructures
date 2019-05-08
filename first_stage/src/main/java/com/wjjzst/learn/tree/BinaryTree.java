@@ -301,7 +301,15 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
     @Override
     public Object string(Object node) {
-        return ((Node<E>) node).element;
+        StringBuilder sb = new StringBuilder();
+        sb.append(((Node<E>) node).element).append("_p(");
+        if (((Node<E>) node).parent == null) {
+            sb.append("null");
+        } else {
+            sb.append(((Node<E>) node).parent.element);
+        }
+        sb.append(")");
+        return sb.toString();
     }
 
 
@@ -336,6 +344,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         public boolean isLeftChild() {
             return parent != null && this == parent.left;
         }
+
         //判断自己是不是父节点的左子树
         public boolean isRightChild() {
             return parent != null && this == parent.right;
