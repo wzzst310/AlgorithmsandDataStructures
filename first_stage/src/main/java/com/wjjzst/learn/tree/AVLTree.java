@@ -41,7 +41,7 @@ public class AVLTree<E> extends BinarySearchTree<E> {
                 updateHeight(node);
             } else {
                 // 恢复平衡 找到第一个不平衡的节点
-                rebalance1(node);
+                rebalance(node);
                 // 需要一直往上找直到找到平衡的父节点  一直去恢复平
             }
         }
