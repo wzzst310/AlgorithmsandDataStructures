@@ -349,6 +349,17 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         public boolean isRightChild() {
             return parent != null && this == parent.right;
         }
+
+        // 获取兄弟节点
+        public Node<E> sibiling() {
+            if (isLeftChild()) {
+                return parent.right;
+            } else if (isRightChild()) {
+                return parent.left;
+            } else {
+                return null;
+            }
+        }
     }
 
 }
