@@ -45,7 +45,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         preorderTraversal(node.right);
     }
 
-    public void preorder(BinarySearchTree.Visitor<E> visitor) {
+    public void preorder(BSTree.Visitor<E> visitor) {
         if (root == null || visitor == null) {
             return;
         }
@@ -53,7 +53,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
-    private void preorder(Node<E> node, BinarySearchTree.Visitor<E> visitor) {
+    private void preorder(Node<E> node, BSTree.Visitor<E> visitor) {
         if (node == null) {
             return;
         }
@@ -79,7 +79,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         inorderTraversal(node.right);
     }
 
-    public void inorder(BinarySearchTree.Visitor<E> visitor) {
+    public void inorder(BSTree.Visitor<E> visitor) {
         if (root == null || visitor == null) {
             return;
         }
@@ -87,7 +87,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
-    private void inorder(Node<E> node, BinarySearchTree.Visitor<E> visitor) {
+    private void inorder(Node<E> node, BSTree.Visitor<E> visitor) {
         if (node == null) {
             return;
         }
@@ -113,7 +113,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         System.out.println(node.element);
     }
 
-    public void postorder(BinarySearchTree.Visitor<E> visitor) {
+    public void postorder(BSTree.Visitor<E> visitor) {
         if (root == null || visitor == null) {
             return;
         }
@@ -121,7 +121,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
-    private void postorder(Node<E> node, BinarySearchTree.Visitor<E> visitor) {
+    private void postorder(Node<E> node, BSTree.Visitor<E> visitor) {
         if (node == null) {
             return;
         }
@@ -155,7 +155,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
     }
 
-    public void levelOrder(BinarySearchTree.Visitor<E> visitor) {
+    public void levelOrder(BSTree.Visitor<E> visitor) {
         if (root == null) {
             return;
         }

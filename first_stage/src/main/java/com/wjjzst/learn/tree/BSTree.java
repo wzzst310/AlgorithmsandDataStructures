@@ -3,14 +3,14 @@ package com.wjjzst.learn.tree;
 import java.util.Comparator;
 import java.util.List;
 
-public class BinarySearchTree<E> extends BinaryTree<E> {
+public class BSTree<E> extends BinaryTree<E> {
     private Comparator comparator;
 
-    public BinarySearchTree(Comparator comparator) {
+    public BSTree(Comparator comparator) {
         this.comparator = comparator;
     }
 
-    public BinarySearchTree() {
+    public BSTree() {
 
     }
 

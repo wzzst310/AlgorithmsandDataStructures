@@ -21,7 +21,7 @@ public class Main {
         //bst.inorderTraversal();
         //bst.postorderTraversal();
         //bst.levelOrderTraversal();
-        /*bst.levelOrder(new BinarySearchTree.Visitor<Integer>() {
+        /*bst.levelOrder(new BSTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 System.out.println(element);
@@ -32,7 +32,7 @@ public class Main {
         // System.out.println(bst.height2());
         // System.out.println(bst.isComplete());
         /*list.clear();
-        bst.preorder(new BinarySearchTree.Visitor<Integer>() {
+        bst.preorder(new BSTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 list.add(element);
@@ -40,7 +40,7 @@ public class Main {
         });
         System.out.println("前序:"+list);
         list.clear();
-        bst.inorder(new BinarySearchTree.Visitor<Integer>() {
+        bst.inorder(new BSTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 list.add(element);
@@ -48,7 +48,7 @@ public class Main {
         });
         System.out.println("中序:"+list);*/
         /*List<Integer> newList = new ArrayList<>();
-        bst.levelOrder(new BinarySearchTree.Visitor<Integer>() {
+        bst.levelOrder(new BSTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
                 newList.add(element);
