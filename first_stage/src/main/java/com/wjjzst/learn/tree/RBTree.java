@@ -56,6 +56,20 @@ public class RBTree<E> extends BBSTree<E> {
         }
     }
 
+    @Override
+    protected void afterRemove(Node<E> node, Node<E> replacement) {
+        // 如果被删除的节点是红色的则不用做任何处理
+        if (isRed(node)) {
+            return;
+        }
+        // 如果用于取代node的replacement节点是红色的,则染成黑色即可
+        if (isRed(replacement)) {
+            black(replacement);
+            return;
+        }
+        // 删除的是黑色叶子节点
+    }
+
     private boolean isBlack(Node<E> node) {
         return colorOf(node) == BLACK;
     }

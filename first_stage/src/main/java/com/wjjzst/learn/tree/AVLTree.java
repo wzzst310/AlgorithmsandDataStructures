@@ -34,7 +34,7 @@ public class AVLTree<E> extends BBSTree<E> {
     }
 
     @Override
-    protected void afterRemove(Node<E> node) {
+    protected void afterRemove(Node<E> node, Node<E> repalcement) {
         while ((node = node.parent) != null) {
             if (isBalance(node)) {
                 //更新高度 while循环同时更新高度 免得递归更新高度
@@ -46,6 +46,7 @@ public class AVLTree<E> extends BBSTree<E> {
             }
         }
     }
+
     // 高度最低的那个不平衡的节点  // 就是grandparent节点
     private void rebalance1(Node<E> grandparent) {
         Node<E> parent = ((AVLTree.AVLNode<E>) grandparent).tallerChild();
@@ -85,6 +86,7 @@ public class AVLTree<E> extends BBSTree<E> {
             }
         }
     }
+
     @Override
     protected Node<E> createNode(E element, Node<E> parent) {
         return new AVLNode<>(element, parent);
