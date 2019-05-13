@@ -76,7 +76,8 @@ public class Main {
         System.out.println(list);
         return list;
     }
-    static void testAVL(List<Integer> list ){
+
+    static void testAVL(List<Integer> list) {
         AVLTree<Integer> avl = new AVLTree<>();
         avl.add(list);
         BinaryTrees.print(avl);
@@ -88,10 +89,24 @@ public class Main {
             System.out.println("\n");
         }
     }
-    static void testRB(List<Integer> list){
+
+    static void testRB(List<Integer> list) {
         RBTree<Integer> rb = new RBTree<>();
-        rb.add(list);
-        BinaryTrees.print(rb);
+        // rb.add(list);
+        for (Integer i : list) {
+            System.out.println("\n");
+            System.out.println("【" + "+" + i + "】");
+            rb.add(i);
+            BinaryTrees.print(rb);
+            System.out.println("\n");
+        }
+        for (Integer i : list) {
+            System.out.println("\n");
+            System.out.println("【" + "-" + i + "】");
+            rb.remove(i);
+            BinaryTrees.print(rb);
+            System.out.println("\n");
+        }
     }
 
     public static void main(String[] args) {
