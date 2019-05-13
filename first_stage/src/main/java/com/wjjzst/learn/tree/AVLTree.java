@@ -34,7 +34,7 @@ public class AVLTree<E> extends BBSTree<E> {
     }
 
     @Override
-    protected void afterRemove(Node<E> node, Node<E> repalcement) {
+    protected void afterRemove(Node<E> node) {
         while ((node = node.parent) != null) {
             if (isBalance(node)) {
                 //更新高度 while循环同时更新高度 免得递归更新高度

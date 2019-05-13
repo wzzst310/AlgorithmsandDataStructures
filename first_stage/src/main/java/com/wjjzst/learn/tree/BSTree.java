@@ -93,10 +93,10 @@ public class BSTree<E> extends BinaryTree<E> {
             } else {
                 node.parent.right = replacement;
             }
-            afterRemove(node, replacement);
+            afterRemove(replacement);
         } else if (node.parent == null) {// 度为0的节点  根节点
             root = null;
-            afterRemove(node, null);
+            afterRemove(node);
         } else { // 度为0的节点 其他节点
             if (node == node.parent.left) {
                 // node.parent.left = replacement; //此时replacement = null
@@ -104,14 +104,14 @@ public class BSTree<E> extends BinaryTree<E> {
             } else {
                 node.parent.right = null;
             }
-            afterRemove(node, null);
+            afterRemove(node);
         }
         // 虽然没有节点指向node 但是node仍然指向他的父节点 node.parent = replacement.parent
         // node删掉了 node.parent高度就会改变就需要平衡
         // afterRemove(node); //删了replacement 改变的是node 需要调整的也是node
     }
 
-    protected void afterRemove(Node<E> node, Node<E> replacement) {
+    protected void afterRemove(Node<E> node) {
 
     }
 

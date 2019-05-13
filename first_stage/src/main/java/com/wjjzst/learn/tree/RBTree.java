@@ -13,7 +13,7 @@ public class RBTree<E> extends BBSTree<E> {
     @Override
     protected void afterAdd(Node<E> node) {
         Node<E> parent = node.parent;
-        // 添加的是根节点
+        // 添加的是根节点  或者上溢到了根节点
         if (parent == null) {
             black(node);
             return;
@@ -24,19 +24,18 @@ public class RBTree<E> extends BBSTree<E> {
         }
         // 叔父节点
         Node<E> uncle = parent.sibling();
-        // 祖父节点
-        Node<E> grandparent = parent.parent;
+        // 祖父节点 祖父节点最终终会变成红色
+        Node<E> grandparent = red(parent.parent);
         // 如果叔父节点是红色 则说明原来的节点有三个值 新加的元素后发生上溢现象 grandparent上去
         if (isRed(uncle)) {
             black(parent);
             black(uncle);
             //把祖父节点染成红色并当作新添加的节点
-            afterAdd(red(grandparent));
+            afterAdd(grandparent);
             return;
         }
         //叔父节点不是红色  需要旋转
         if (parent.isLeftChild()) {
-            red(grandparent);
             if (node.isLeftChild()) { // LL
                 black(parent);
             } else { // LR
@@ -45,7 +44,6 @@ public class RBTree<E> extends BBSTree<E> {
             }
             rotateRight(grandparent);
         } else { //R
-            red(grandparent);
             if (node.isLeftChild()) { //RL
                 black(node);
                 rotateRight(parent);
@@ -57,14 +55,14 @@ public class RBTree<E> extends BBSTree<E> {
     }
 
     @Override
-    protected void afterRemove(Node<E> node, Node<E> replacement) {
+    protected void afterRemove(Node<E> node) {
         // 如果被删除的节点是红色的则不用做任何处理
         if (isRed(node)) {
             return;
         }
         // 如果用于取代node的replacement节点是红色的,则染成黑色即可
-        if (isRed(replacement)) {
-            black(replacement);
+        if (isRed(node)) {
+            black(node);
             return;
         }
         Node<E> parent = node.parent;
@@ -96,7 +94,7 @@ public class RBTree<E> extends BBSTree<E> {
                 black(parent);
                 red(sibling);
                 if (parentBlack) {
-                    afterRemove(parent, null);
+                    afterRemove(parent);
                 }
             } else { // 兄弟至少有一个红子节点,想兄弟节点借元素
                 // 兄弟的节点的右边是黑色,兄弟先进行旋转
@@ -125,7 +123,7 @@ public class RBTree<E> extends BBSTree<E> {
                 red(sibling);
                 if (parentBlack) {
                     // TODO 待理解
-                    afterRemove(parent, null);
+                    afterRemove(parent);
                 }
             } else { // 兄弟至少有一个红子节点,想兄弟节点借元素
                 // 兄弟的节点的左边是黑色,兄弟先进行旋转
