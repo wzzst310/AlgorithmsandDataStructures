@@ -3,8 +3,7 @@ package com.wjjzst.learn.tree;
 
 import com.wjjzst.learn.tree.printer.BinaryTreeInfo;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @Author: Wjj
@@ -54,10 +53,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 
     private void preorder(Node<E> node, BSTree.Visitor<E> visitor) {
-        if (node == null) {
+        if (node == null || visitor.stop()) {
             return;
         }
-        visitor.visit(node.element);
+        visitor.visitWrap(node.element);
         preorder(node.left, visitor);
         preorder(node.right, visitor);
     }
@@ -88,11 +87,11 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 
     private void inorder(Node<E> node, BSTree.Visitor<E> visitor) {
-        if (node == null) {
+        if (node == null || visitor.stop()) {
             return;
         }
         inorder(node.left, visitor);
-        visitor.visit(node.element);
+        visitor.visitWrap(node.element);
         inorder(node.right, visitor);
     }
 
@@ -122,12 +121,12 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 
     private void postorder(Node<E> node, BSTree.Visitor<E> visitor) {
-        if (node == null) {
+        if (node == null || visitor.stop()) {
             return;
         }
         postorder(node.left, visitor);
         postorder(node.right, visitor);
-        visitor.visit(node.element);
+        visitor.visitWrap(node.element);
     }
 
     public void levelOrderTraversal() {
@@ -148,8 +147,9 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         }*/
         levelOrder(new Visitor<E>() {
             @Override
-            public void visit(E element) {
+            public boolean visit(E element) {
                 System.out.println(element);
+                return false;
             }
         });
 
@@ -163,7 +163,9 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         queue.offer(root);
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
-            visitor.visit(node.element);
+            if (visitor.visit(node.element)) {
+                return;
+            }
             if (node.left != null) {
                 queue.offer(node.left);
             }
@@ -267,6 +269,37 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         Queue<Node<E>> queue = new LinkedList<>();
         queue.offer(root);
         boolean leaf = false; //要求后面节点是叶子的标志
+        // 保证层序节点所有的都能遍历到
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+            if (leaf && !node.isLeaf()) {
+                return false;
+            }
+            if (node.left != null) {
+                queue.offer(node.left);
+            } else if (node.right != null) { //左空右不空
+                // node.left == null && node.right != null;
+                return false;
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            } else {
+                // node.left != null && node.right == null;
+                // node.left == null && node.right == null;
+                leaf = true;
+            }
+        }
+        return true;
+    }
+
+    public boolean isComplete1() {
+        if (root == null) {
+            return false;
+        }
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean leaf = false; //要求后面节点是叶子的标志
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
             if (leaf && !node.isLeaf()) {
@@ -279,6 +312,9 @@ public class BinaryTree<E> implements BinaryTreeInfo {
                 return false;
             } else {  //后面的节点都应该全是叶子节点 如果不是叶子节点则返回false
                 leaf = true;
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
             }
         }
         return true;
@@ -313,8 +349,23 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
-    public static interface Visitor<E> {
-        void visit(E element);
+    public interface Visitor<E> {
+        Map flag = new HashMap();
+
+        boolean visit(E element);
+
+        default void visitWrap(E element) {
+            if (stop()) {
+                return;
+            }
+            if (visit(element)) {
+                flag.put("flag", true);
+            }
+        }
+
+        default boolean stop() {
+            return flag.get("flag") != null;
+        }
     }
 
     protected Node<E> createNode(E element, Node<E> parent) {

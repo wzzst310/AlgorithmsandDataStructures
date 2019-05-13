@@ -1,5 +1,6 @@
 package com.wjjzst.learn.tree.old;
 
+
 import com.wjjzst.learn.tree.printer.BinaryTreeInfo;
 
 import java.util.Comparator;
@@ -272,6 +273,37 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         Queue<Node<E>> queue = new LinkedList<>();
         queue.offer(root);
         boolean leaf = false; //要求后面节点是叶子的标志
+        // 保证层序节点所有的都能遍历到
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+            if (leaf && !node.isLeaf()) {
+                return false;
+            }
+            if (node.left != null) {
+                queue.offer(node.left);
+            } else if (node.right != null) { //左空右不空
+                // node.left == null && node.right != null;
+                return false;
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            } else {
+                // node.left != null && node.right == null;
+                // node.left == null && node.right == null;
+                leaf = true;
+            }
+        }
+        return true;
+    }
+
+    public boolean isComplete1() {
+        if (root == null) {
+            return false;
+        }
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean leaf = false; //要求后面节点是叶子的标志
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
             if (leaf && !node.isLeaf()) {
@@ -283,7 +315,10 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
             } else if (node.left == null && node.right != null) {
                 return false;
             } else {  //后面的节点都应该全是叶子节点 如果不是叶子节点则返回false
-                leaf = true;
+                leaf = true;  //到达次数node.left可能不为空还是要入栈
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
             }
         }
         return true;

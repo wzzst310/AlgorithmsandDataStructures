@@ -13,8 +13,9 @@ public class Main {
 
 
     static void test1() {
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
-        bst.add(generateList());
+        BSTree<Integer> bst = new BSTree<>();
+        List<Integer> list = generateList();
+        bst.add(list);
         BinaryTrees.print(bst);
         System.out.println("\n");
         //bst.preorderTraversal();
@@ -31,36 +32,48 @@ public class Main {
         // System.out.println(bst.height());
         // System.out.println(bst.height2());
         // System.out.println(bst.isComplete());
-        /*list.clear();
+        //list.clear();
         bst.preorder(new BSTree.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
-                list.add(element);
+            public boolean visit(Integer element) {
+                System.out.println(element);
+                return 43 == element;
             }
         });
-        System.out.println("前序:"+list);
-        list.clear();
-        bst.inorder(new BSTree.Visitor<Integer>() {
+        //System.out.println("前序:"+list);
+        //list.clear();
+        /*bst.inorder(new BSTree.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
-                list.add(element);
+            public boolean visit(Integer element) {
+                System.out.println(element);
+                return 43 == element;
             }
-        });
-        System.out.println("中序:"+list);*/
+        });*/
+        //System.out.println("中序:"+list);
+        /* list.clear();
+        bst.postorder(new BSTree.Visitor<Integer>() {
+            @Override
+            public boolean visit(Integer element) {
+                // list.add(element);
+                System.out.println(element);
+                return 43 == element;
+            }
+        });*/
         /*List<Integer> newList = new ArrayList<>();
         bst.levelOrder(new BSTree.Visitor<Integer>() {
             @Override
-            public void visit(Integer element) {
+            public boolean visit(Integer element) {
                 newList.add(element);
+                return 54 == element;
             }
         });
-        System.out.println("层序:"+newList);*/
-        bst.remove(13);
-        BinaryTrees.print(bst);
-        System.out.println("\n");
-        bst.remove(68);
-        BinaryTrees.print(bst);
-        System.out.println("\n");
+        System.out.println("层序:" + newList);*/
+//        bst.remove(13);
+//        BinaryTrees.print(bst);
+//        System.out.println("\n");
+//        bst.remove(68);
+//        BinaryTrees.print(bst);
+//        System.out.println("\n");
 
     }
 
@@ -110,10 +123,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // test1();
-        List<Integer> list = generateList();
+        test1();
+        //List<Integer> list = generateList();
         //testAVL(list);
-        testRB(list);
+        //testRB(list);
 
 
     }
