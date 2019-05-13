@@ -23,7 +23,7 @@ public class RBTree<E> extends BBSTree<E> {
             return;
         }
         // 叔父节点
-        Node<E> uncle = parent.sibiling();
+        Node<E> uncle = parent.sibling();
         // 祖父节点
         Node<E> grandparent = parent.parent;
         // 如果叔父节点是红色 则说明原来的节点有三个值 新加的元素后发生上溢现象 grandparent上去
@@ -67,12 +67,78 @@ public class RBTree<E> extends BBSTree<E> {
             black(replacement);
             return;
         }
-        // 删除的是黑色叶子节点
-        Node<E> uncle = node.sibiling();
-        if(isBlack(uncle)){
+        Node<E> parent = node.parent;
+        // 删除的是根节点
+        if (parent == null) {
+            return;
+        }
 
-        }else{
+        // 删除的是黑色叶子节点   // 删除的是叶子节点 replacement必然是空的
+        // 判断被删除的node是左还是右
+        // 此时node的parent已经完全不指向node了 指向的是replacement
+        // TODO 待理解
+        // 判断被删除的node是左还是右
+        boolean left = parent.left == null;
+        // 不能根据下面这种方法获取兄弟节点 parent已经完全不指向node了
+        // Node<E> sibling = node.sibling();
+        Node<E> sibling = left ? parent.right : parent.left;
+        if (left) { //被删除的节点在左边,兄弟节点在右边
+            if (isRed(sibling)) { //兄弟节点是红色 兄弟节点染成黑色 父节点染成红色 对父节点左旋 使兄弟节点左节点成为自己的兄弟节点
+                black(sibling);
+                red(parent);
+                rotateLeft(parent);
+                sibling = parent.right;
+            }
 
+            // 兄弟节点必然是黑色的 空的也算作是黑节点
+            if (isBlack(sibling.right) && isBlack(sibling.left)) {  //兄弟左右都是黑的 没有节点可以借,父节点要向下节点与兄弟节点合并
+                boolean parentBlack = isBlack(parent); // 父节点与兄弟节点都为黑色的时候  先记录下来 再染色 再递归的
+                black(parent);
+                red(sibling);
+                if (parentBlack) {
+                    afterRemove(parent, null);
+                }
+            } else { // 兄弟至少有一个红子节点,想兄弟节点借元素
+                // 兄弟的节点的右边是黑色,兄弟先进行旋转
+                if (isBlack(sibling.right)) {    // 即兄弟节点右节点为null 有左节点的时候
+                    rotateRight(sibling);
+                    // sibling = sibling.left;  // 原本兄弟的左节点要变为兄弟节点  变换之后sibling的left已经是空的了
+                    sibling = parent.right; // 原本兄弟的左节点要变为兄弟节点
+                }
+                color(sibling,colorOf(parent)); // 兄弟节点继承父节点的颜色
+                black(sibling.right); // 新的 sibling的右节点就是之前的sibling
+                black(parent); // 父节点变成黑色  因为父节点代替调整到被删除节点的位置(被删除的时黑色的)
+                rotateLeft(parent); // 父节点左旋转
+            }
+        } else { // 被删除逇节点在右边,兄弟节点在左边
+            if (isRed(sibling)) { //兄弟节点是红色 兄弟节点染成黑色 父节点染成红色 对父节点右旋 使兄弟节点右节点成为自己的兄弟节点
+                black(sibling);
+                red(parent);
+                rotateRight(parent);
+                sibling = parent.left;
+            }
+
+            // 兄弟节点必然是黑色的 空的也算作是黑节点
+            if (isBlack(sibling.left) && isBlack(sibling.right)) {  //兄弟左右都是黑的 即两边都没有红节点 没有节点可以借,父节点要向下节点与兄弟节点合并
+                boolean parentBlack = isBlack(parent); // 父节点与兄弟节点都为黑色的时候  先记录下来 再染色 再递归的
+                black(parent);
+                red(sibling);
+                if (parentBlack) {
+                    // TODO 待理解
+                    afterRemove(parent, null);
+                }
+            } else { // 兄弟至少有一个红子节点,想兄弟节点借元素
+                // 兄弟的节点的左边是黑色,兄弟先进行旋转
+                if (isBlack(sibling.left)) {    // 即兄弟节点左节点为null 有右节点的时候
+                    rotateLeft(sibling);
+                    // sibling = sibling.right;  // 原本兄弟的右节点要变为兄弟节点  变换之后sibling的right已经是空的了
+                    sibling = parent.left; // 原本兄弟的右节点要变为兄弟节点
+                }
+                color(sibling,colorOf(parent)); // 兄弟节点继承父节点的颜色
+                black(sibling.left); // 新的 sibling的左节点就是之前的sibling
+                black(parent); // 父节点变成黑色  因为父节点代替调整到被删除节点的位置(被删除的时黑色的)
+                rotateRight(parent); // 父节点右旋转
+            }
         }
     }
 
