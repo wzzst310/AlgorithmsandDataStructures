@@ -68,6 +68,12 @@ public class RBTree<E> extends BBSTree<E> {
             return;
         }
         // 删除的是黑色叶子节点
+        Node<E> uncle = node.sibiling();
+        if(isBlack(uncle)){
+
+        }else{
+
+        }
     }
 
     private boolean isBlack(Node<E> node) {
