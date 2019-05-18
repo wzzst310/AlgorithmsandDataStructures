@@ -33,7 +33,7 @@ public class Main {
         // System.out.println(bst.height2());
         // System.out.println(bst.isComplete());
         //list.clear();
-        bst.preorder(new BSTree.Visitor<Integer>() {
+        bst.preorder(new BinaryTree.Visitor<Integer>() {
             @Override
             public boolean visit(Integer element) {
                 System.out.println(element);

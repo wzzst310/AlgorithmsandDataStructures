@@ -3,13 +3,16 @@ package com.wjjzst.learn.tree;
 
 import com.wjjzst.learn.tree.printer.BinaryTreeInfo;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * @Author: Wjj
  * @Date: 2019/5/6 12:17
  */
-public class BinaryTree<E> implements BinaryTreeInfo {
+public class MyBinaryTree<E> implements BinaryTreeInfo {
     protected int size;
     protected Node<E> root;
 
@@ -45,7 +48,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     public void preorder(Visitor<E> visitor) {
-        if (visitor == null) {
+        if (root == null || visitor == null) {
             return;
         }
         preorder(root, visitor);
@@ -53,13 +56,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 
     private void preorder(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor.stop) {
+        if (node == null || visitor.stop()) {
             return;
         }
-        if (visitor.stop) {
-            return;
-        }
-        visitor.stop = visitor.visit(node.element);
+        visitor.visitWrap(node.element);
         preorder(node.left, visitor);
         preorder(node.right, visitor);
     }
@@ -82,7 +82,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     public void inorder(Visitor<E> visitor) {
-        if (visitor == null) {
+        if (root == null || visitor == null) {
             return;
         }
         inorder(root, visitor);
@@ -90,14 +90,11 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 
     private void inorder(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor.stop) {
+        if (node == null || visitor.stop()) {
             return;
         }
         inorder(node.left, visitor);
-        if (visitor.stop) {
-            return;
-        }
-        visitor.stop = visitor.visit(node.element);
+        visitor.visitWrap(node.element);
         inorder(node.right, visitor);
     }
 
@@ -119,7 +116,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     public void postorder(Visitor<E> visitor) {
-        if ( visitor == null) {
+        if (root == null || visitor == null) {
             return;
         }
         postorder(root, visitor);
@@ -127,15 +124,12 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
 
     private void postorder(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor.stop) {
+        if (node == null || visitor.stop()) {
             return;
         }
         postorder(node.left, visitor);
         postorder(node.right, visitor);
-        if (visitor.stop) {
-            return;
-        }
-        visitor.stop = visitor.visit(node.element);
+        visitor.visitWrap(node.element);
     }
 
     public void levelOrderTraversal() {
@@ -358,10 +352,23 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
-    public static abstract class Visitor<E> {
-        boolean stop;
+    public interface Visitor<E> {
+        Map flag = new HashMap();
 
-        abstract boolean visit(E element);
+        boolean visit(E element);
+
+        default void visitWrap(E element) {
+            if (stop()) {
+                return;
+            }
+            if (visit(element)) {
+                flag.put("flag", true);
+            }
+        }
+
+        default boolean stop() {
+            return flag.get("flag") != null;
+        }
     }
 
     protected Node<E> createNode(E element, Node<E> parent) {
